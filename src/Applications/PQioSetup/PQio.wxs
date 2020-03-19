@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="PQds" Language="1033" Version="!(bind.FileVersion.PQds.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="7a9ecf0a-e74e-4d66-b272-cc3a4749a4ea">
+	<Product Id="*" Name="PQio" Language="1033" Version="!(bind.FileVersion.PQio.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="7a9ecf0a-e74e-4d66-b272-cc3a4749a4ea">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -11,7 +11,7 @@
       <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_46_OR_LATER_INSTALLED]]>
     </Condition>
 
-		<Feature Id="ProductFeature" Title="PQds" Level="1">
+		<Feature Id="ProductFeature" Title="PQio" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 
@@ -27,20 +27,20 @@
       <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="CompanyInfoDialog">NOT Installed AND NOT REMOVE</Publish>      
     </UI>
 
-    <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)Documentation\License_PQDS.rtf" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)Documentation\License_PQio.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQDs_Header.png" />
     <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQDs_Dialog.png" />
     
     
-    <Property Id="DEFAULTCOMPANYNAME" Value="My Company" />
-    <Property Id="DEFAULTCOMPANYEMAIL" Value="myemail@mycompany.com" />
+    <Property Id="DEFAULTCOMPANYNAME" Value="GridProtectionAlliance" />
+    <Property Id="DEFAULTCOMPANYEMAIL" Value="support@gridprotectionalliance.org" />
     <Property Id="COMPANYNAME" Secure="yes" />
     <Property Id="COMPANYEMAIL" Secure="yes" />
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
     
-    <Property Id="SERVICENAME" Value="$(var.PQds.TargetName)" />
+    <Property Id="SERVICENAME" Value="$(var.PQio.TargetName)" />
   
-    <Icon Id="icon.ico" SourceFile="$(var.PQds.TargetPath)"/>
+    <Icon Id="icon.ico" SourceFile="$(var.PQio.TargetPath)"/>
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
     
     
@@ -61,19 +61,19 @@
 		<Directory Id="TARGETDIR" Name="SourceDir">
       <?if $(var.Platform) = x64 ?>
         <Directory Id="ProgramFiles64Folder">
-          <Directory Id="INSTALLFOLDER" Name="PQds">
+          <Directory Id="INSTALLFOLDER" Name="PQio">
               <Directory Id="DocFolder" Name="Documentation"/>
           </Directory>
         </Directory>
       <?else ?>
         <Directory Id="ProgramFilesFolder">
-          <Directory Id="INSTALLFOLDER" Name="PQds">
+          <Directory Id="INSTALLFOLDER" Name="PQio">
             <Directory Id="DocFolder" Name="Documentation"/>
           </Directory>
         </Directory>
       <?endif ?>
     <Directory Id="ProgramMenuFolder">
-      <Directory Id="StartMenuFolderName" Name="PQds" />
+      <Directory Id="StartMenuFolderName" Name="PQio" />
       <Directory Id="DesktopFolder" />
     </Directory>
     </Directory>
@@ -82,14 +82,14 @@
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<Component Id="PQds">
-        <File Id="PQds.exe" Name="$(var.PQds.TargetFileName)" Source="$(var.PQds.TargetPath)" />
+			<Component Id="PQio">
+        <File Id="PQio.exe" Name="$(var.PQio.TargetFileName)" Source="$(var.PQio.TargetPath)" />
 			</Component>
       <Component Id="FileParser">
         <File Id="FileParser.dll" Name="$(var.FileParser.TargetFileName)" Source="$(var.FileParser.TargetPath)" />
       </Component>
-      <Component Id="PQds.Model">
-        <File Id="PQds.Model.dll" Name="$(var.PQds.Model.TargetFileName)" Source="$(var.PQds.Model.TargetPath)" />
+      <Component Id="PQio.Model">
+        <File Id="PQio.Model.dll" Name="$(var.PQio.Model.TargetFileName)" Source="$(var.PQio.Model.TargetPath)" />
       </Component>
       <ComponentGroupRef Id="GSFLibraries" />
       <ComponentRef Id="Ionic.Zlib"/>
@@ -150,24 +150,15 @@
         <File Id="SetupTool.exe.config" Name="$(var.SetupTool.TargetFileName).config" Source="$(var.SetupTool.TargetPath).config" />
       </Component>
       <Component Id="PQds.config">
-        <File Id="PQds.exe.config" Name="$(var.PQds.TargetFileName).config" Source="$(var.PQds.TargetPath).config" />
+        <File Id="PQds.exe.config" Name="$(var.PQio.TargetFileName).config" Source="$(var.PQio.TargetPath).config" />
       </Component>
     </ComponentGroup>
 
     <!-- License and Documentition Dependencies-->
     <ComponentGroup Id="Documentation">
       <Component Id="License" Directory="DocFolder">
-        <File Id="License_PQDS.rtf" Name="License_PQDS.rtf" Source="$(var.SolutionDir)Documentation\License_PQDS.rtf" />
-      </Component>
-      <Component Id="SplashScreen" Directory="DocFolder">
-        <File Id="Splash_PQDS.rtf" Name="Splash_PQDS.rtf" Source="$(var.SolutionDir)Documentation\Splash_PQDS.rtf" />
-      </Component>
-      <Component Id="About" Directory="DocFolder">
-        <File Id="About_PQDS.rtf" Name="About_PQDS.rtf" Source="$(var.SolutionDir)Documentation\About_PQDS.rtf" />
-      </Component>
-      <Component Id="Manual" Directory="DocFolder">
-        <File Id="Manual.pdf" Name="Manual.pdf" Source="$(var.SolutionDir)Documentation\Manual.pdf" />
-      </Component>
+        <File Id="License_PQio.rtf" Name="License_PQio.rtf" Source="$(var.SolutionDir)Documentation\License_PQio.rtf" />
+      </Component>      
     </ComponentGroup>
 
     
@@ -175,28 +166,24 @@
     <ComponentGroup Id="ApplicationShortcut">
     <Component Id="MenuShortcut" Guid="FCA787C7-8266-46E4-A9D9-10F1E783EDA0" Directory="StartMenuFolderName">
       <Shortcut Id="ApplicationStartMenuShortcut"
-                Name="PQds Tool"
-                Description="PQds Software tool"
+                Name="PQio Tool"
+                Description="PQio Software tool"
                 Target="[#PQds.exe]"
                 WorkingDirectory="INSTALLFOLDER"
                 Icon ="icon.ico"/>
-      <Shortcut Id="ManualStartMenuShortcut"
-                Name="Software Manual"
-                Description="PQds Tool Manual"
-                Target="[#Manual.pdf]"
-                WorkingDirectory="DocFolder"/>
+      
       <RemoveFolder Id="CleanUpShortCut" Directory="StartMenuFolderName" On="uninstall"/>
-      <RegistryValue Root="HKCU" Key="Software\GPA\PQds" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      <RegistryValue Root="HKCU" Key="Software\GPA\PQio" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
     </Component>
 
     <Component Id="DesktopShortcut" Guid="{A2211042-F515-4BE5-B323-4AA3F48BC111}" Directory="DesktopFolder">
       <Shortcut Id="ApplicationDesktopShortcut"
-                Name="PQds Tool"
-                Description="PQds Software tool"
-                Target="[#PQds.exe]"
+                Name="PQio Tool"
+                Description="PQio Software tool"
+                Target="[#PQio.exe]"
                 WorkingDirectory="INSTALLFOLDER"
                 Icon ="icon.ico"/>
-      <RegistryValue Root="HKCU" Key="Software\GPA\PQds" Name="installed-Desktop" Type="integer" Value="1" KeyPath="yes"/>
+      <RegistryValue Root="HKCU" Key="Software\GPA\PQio" Name="installed-Desktop" Type="integer" Value="1" KeyPath="yes"/>
     </Component>
     </ComponentGroup>
   </Fragment>
