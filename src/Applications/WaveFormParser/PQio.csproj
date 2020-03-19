@@ -242,8 +242,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PQDS_Logo_120.png" />
-    <Content Include="PQds.ico" />
     <Content Include="PQio.ico" />
     <Content Include="PQio_Logo.png" />
   </ItemGroup>
