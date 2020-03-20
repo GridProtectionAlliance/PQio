@@ -28,8 +28,8 @@
     </UI>
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)Documentation\License_PQio.rtf" />
-    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQDs_Header.png" />
-    <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQDs_Dialog.png" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQio_Header.png" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)Applications\PQioSetup\PQio_Dialog.png" />
     
     
     <Property Id="DEFAULTCOMPANYNAME" Value="GridProtectionAlliance" />
@@ -113,6 +113,9 @@
       <Component Id="TagDefinitions">
         <File Id="TagDefinitions.xml" Name="TagDefinitions.xml" Source="$(var.SolutionDir)Dependencies\gsf\TagDefinitions.xml" />
       </Component>
+      <Component Id="PQDS">
+        <File Id="PQDS.dll" Name="PQDS.dll" Source="$(var.SolutionDir)Dependencies\gsf\PQDS.dll" />
+      </Component>
     </ComponentGroup>
     
     <!-- DotNetZip Dependencies-->
@@ -149,8 +152,8 @@
       <Component Id="SetupTool.config">
         <File Id="SetupTool.exe.config" Name="$(var.SetupTool.TargetFileName).config" Source="$(var.SetupTool.TargetPath).config" />
       </Component>
-      <Component Id="PQds.config">
-        <File Id="PQds.exe.config" Name="$(var.PQio.TargetFileName).config" Source="$(var.PQio.TargetPath).config" />
+      <Component Id="PQio.config">
+        <File Id="PQio.exe.config" Name="$(var.PQio.TargetFileName).config" Source="$(var.PQio.TargetPath).config" />
       </Component>
     </ComponentGroup>
 
@@ -168,7 +171,7 @@
       <Shortcut Id="ApplicationStartMenuShortcut"
                 Name="PQio Tool"
                 Description="PQio Software tool"
-                Target="[#PQds.exe]"
+                Target="[#PQio.exe]"
                 WorkingDirectory="INSTALLFOLDER"
                 Icon ="icon.ico"/>
       

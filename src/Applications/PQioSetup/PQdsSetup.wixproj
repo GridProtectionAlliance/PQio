@@ -60,13 +60,16 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\WaveFormParser\PQio.csproj">
-      <Name>PQio _Applications\PQio\PQio_</Name>
+      <Name>PQio</Name>
       <Project>{79fbd416-8cff-425e-a010-15e61b9d3bd7}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
@@ -82,9 +85,6 @@
       <Name>WixNetFxExtension</Name>
     </WixExtension>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
   <PropertyGroup>
     <WixInstallPath>$(SolutionDir)packages\WiX.3.11.2\tools\</WixInstallPath>
     <WixToolPath>$(SolutionDir)packages\WiX.3.11.2\tools\</WixToolPath>
@@ -99,11 +99,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ia64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <WixToolPath>$(SolutionDir)packages\WiX.Toolset.3.9.1208.0\tools\wix\</WixToolPath>
-    <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
-    <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
   </PropertyGroup>
   <Import Project="$(WixTargetsPath)" Condition="Exists($(WixTargetsPath))" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
