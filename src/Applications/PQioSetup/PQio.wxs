@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="PQio" Language="1033" Version="!(bind.FileVersion.PQio.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="7a9ecf0a-e74e-4d66-b272-cc3a4749a4ea">
+	<Product Id="*" Name="PQio" Language="1033" Version="!(bind.FileVersion.PQio.exe)" Manufacturer="Grid Protection Alliance" UpgradeCode="8e4c1769-217a-479e-8646-c0dd55dec1ce">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
