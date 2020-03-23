@@ -55,13 +55,14 @@ namespace PQio
             ConfigurationFile configFile = ConfigurationFile.Current;
             this.m_hasData = false;
             InitializeComponent();
+            ResizeComponents();
         }
 
         #endregion
 
         #region [ Methods ]
 
-        private void Form_Resize(object sender, EventArgs e)
+        private void ResizeComponents()
         {
             // Calculate Vertical Divisions
 
@@ -104,6 +105,10 @@ namespace PQio
             this.panel3.Height = this.Size.Height - 50;
             this.pictureBox1.Top = this.panel3.Height - 87;
             this.button1.Top = this.pictureBox1.Top - 31;
+        }
+        private void Form_Resize(object sender, EventArgs e)
+        {
+            this.ResizeComponents();
         }
 
         private async void OPENFILEButton_Click(object sender, EventArgs e)
