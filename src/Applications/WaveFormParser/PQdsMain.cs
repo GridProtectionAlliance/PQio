@@ -145,7 +145,7 @@ namespace PQio
                     {
                         progressWindow.Close();
                         m_fileName = dialog.SafeFileName;
-                        Text = string.Format("PQds PQDIF - [{0}]", dialog.SafeFileName);
+                        Text = string.Format("PQio PQDIF - [{0}]", dialog.SafeFileName);
                         CSVExportButton.Enabled = true;
                         this.m_hasData = true;
                     }
@@ -167,7 +167,7 @@ namespace PQio
                     {
                         progressWindow.Close();
                         m_fileName = dialog.SafeFileName;
-                        this.Text = string.Format("PQds PQDS - [{0}]", dialog.SafeFileName);
+                        this.Text = string.Format("PQio PQDS - [{0}]", dialog.SafeFileName);
                         CSVExportButton.Enabled = true;
                         this.m_hasData = true;
                     }
