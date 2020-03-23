@@ -14,7 +14,7 @@ namespace PQio
 
         private void PQioAbout_Load(object sender, EventArgs e)
         {
-            using (Stream aboutStream = Assembly.GetEntryAssembly().GetManifestResourceStream("PQds.Documentation.About_PQDS.rtf"))
+            using (Stream aboutStream = Assembly.GetEntryAssembly().GetManifestResourceStream("PQio.Documentation.About_PQDS.rtf"))
             using (TextReader aboutReader = new StreamReader(aboutStream))
             {
                 this.richTextBox1.Rtf = aboutReader.ReadToEnd();

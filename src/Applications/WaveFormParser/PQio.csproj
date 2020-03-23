@@ -215,7 +215,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="Documentation\About_PQDS.rtf" />
-    <EmbeddedResource Include="Documentation\Splash_PQDS.rtf" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
