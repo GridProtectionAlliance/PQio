@@ -1142,20 +1142,20 @@ namespace PQio
                     eventMenuItem.DropDownItems.Add(eventItem);
                 }
 
-                ToolStripMenuItem neweventItem = new ToolStripMenuItem("add new Event");
-                neweventItem.Click += new EventHandler((object sender, EventArgs e) =>
-                {
-                    using (PQdsEvent subForm = new PQdsEvent(-1))
-                    {
-                        subForm.FormClosed += delegate
-                        {
-                            this.UpdateMetaDataSection();
-                            this.UpdateChannelList();
-                        };
-                        subForm.ShowDialog();
-                    }
-                });
-                eventMenuItem.DropDownItems.Add(neweventItem);
+                //ToolStripMenuItem neweventItem = new ToolStripMenuItem("add new Event");
+                //neweventItem.Click += new EventHandler((object sender, EventArgs e) =>
+                //{
+                    //using (PQdsEvent subForm = new PQdsEvent(-1))
+                    //{
+                        //subForm.FormClosed += delegate
+                        //{
+                        //    this.UpdateMetaDataSection();
+                        //    this.UpdateChannelList();
+                        //};
+                        //subForm.ShowDialog();
+                    //}
+                //});
+                //eventMenuItem.DropDownItems.Add(neweventItem);
 
                 this.GlobalMetaDataContextMenue.Items.Add(dataSensitivityItem);
                 this.GlobalMetaDataContextMenue.Items.Add(assetMenueItem);
