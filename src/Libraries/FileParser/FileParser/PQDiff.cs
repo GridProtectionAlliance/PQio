@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using GSF.Data;
 using GSF.PQDIF.Logical;
 using PQio.Model;
@@ -160,94 +161,97 @@ namespace FileParser
 
             meter.AccountName = GSF.PQDIF.Logical.Vendor.ToString(dataSourceRecords[0].VendorID);
 
-            
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
+            using (TransactionScope scope = new TransactionScope())
             {
+                AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider);
+                
                 GSF.Data.Model.TableOperations<Meter> meterTable = new GSF.Data.Model.TableOperations<Meter>(connection);
 
                 meterTable.AddNewRecord(meter);
                 meter.ID = ModelID.GetID<Meter>(connection);
-            }
-
-            //create Channel Definitions
-            List<PQio.Model.Channel> channels = dataSourceRecords[0].ChannelDefinitions.Select(channel => ParseChannel(meter,channel)).ToList();
-            List<PQio.Model.Event> events = new List<Event>();
-            //create Event Definitions
-            foreach (ObservationRecord record in observationRecords)
-            {
-                //Create Event
-                Event evt = ParseObservationRecord(record);
                 
-                //create DataSeries objects
-                foreach (ChannelInstance channelInstance in record.ChannelInstances)
+
+                //create Channel Definitions
+                List<PQio.Model.Channel> channels = dataSourceRecords[0].ChannelDefinitions.Select(channel => ParseChannel(meter, channel, connection)).ToList();
+                List<PQio.Model.Event> events = new List<Event>();
+                //create Event Definitions
+                foreach (ObservationRecord record in observationRecords)
                 {
-                    ParseSeries(channelInstance, channels[(int)channelInstance.ChannelDefinitionIndex], evt);
-                }
-                events.Add(evt);
-            }
+                    //Create Event
+                    Event evt = ParseObservationRecord(record, connection);
 
-            // Remove Channels whithout data
-            channels = channels.FindAll(RemoveEmptyChannel).ToList();
-            events = events.FindAll(RemoveEmptyEvents).ToList();
-
-            // Remove Channels whithout data
-            channels = channels.FindAll(RemoveEmptyChannel).ToList();
-
-            // If only one set of data it's easy to keep only single line
-            int nVa = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageA);
-            int nVb = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageB);
-            int nVc = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageC);
-            int nIa = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentA);
-            int nIb = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentB);
-            int nIc = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentC);
-
-            if (nVa == 1 && nVb == 1 && nVc == 1)
-            {
-                //Create new asset
-                Asset asset = new Asset() { AssetKey = String.Format("Asset 1 ({0})", meter.AccountName) };
-
-                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
-                {
-                    GSF.Data.Model.TableOperations<Asset> assetTable = new GSF.Data.Model.TableOperations<Asset>(connection);
-                    assetTable.AddNewRecord(asset);
-                    asset.ID = ModelID.GetID<Asset>(connection);
-
-                    GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
-
-                    Channel Va = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageA);
-                    Channel Vb = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageB);
-                    Channel Vc = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageC);
-
-                    Va.AssetID = asset.ID;
-                    Vb.AssetID = asset.ID;
-                    Vc.AssetID = asset.ID;
-
-                    channelTable.UpdateRecord(Va);
-                    channelTable.UpdateRecord(Vb);
-                    channelTable.UpdateRecord(Vc);
-
-                if (nIa == 1 && nIb == 1 && nIc == 1)
-                {
-                        Channel Ia = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentA);
-                        Channel Ib = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentB);
-                        Channel Ic = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentC);
-
-                        Ia.AssetID = asset.ID;
-                        Ib.AssetID = asset.ID;
-                        Ic.AssetID = asset.ID;
-
-                        channelTable.UpdateRecord(Ia);
-                        channelTable.UpdateRecord(Ib);
-                        channelTable.UpdateRecord(Ic);
-
+                    //create DataSeries objects
+                    foreach (ChannelInstance channelInstance in record.ChannelInstances)
+                    {
+                        ParseSeries(channelInstance, channels[(int)channelInstance.ChannelDefinitionIndex], evt, connection);
                     }
+                    events.Add(evt);
                 }
+
+                // Remove Channels whithout data
+                channels = channels.FindAll(item => RemoveEmptyChannel(item, connection)).ToList();
+                events = events.FindAll(item => RemoveEmptyEvents(item, connection)).ToList();
+
+                // Remove Channels whithout data
+                channels = channels.FindAll(item => RemoveEmptyChannel(item, connection)).ToList();
+
+                // If only one set of data it's easy to keep only single line
+                int nVa = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageA);
+                int nVb = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageB);
+                int nVc = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.VoltageC);
+                int nIa = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentA);
+                int nIb = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentB);
+                int nIc = channels.Count(channel => channel.MeasurementType.ToLower() == MeasurementType.CurrentC);
+
+                if (nVa == 1 && nVb == 1 && nVc == 1)
+                {
+                    //Create new asset
+                    Asset asset = new Asset() { AssetKey = String.Format("Asset 1 ({0})", meter.AccountName) };
+
+                    
+                        GSF.Data.Model.TableOperations<Asset> assetTable = new GSF.Data.Model.TableOperations<Asset>(connection);
+                        assetTable.AddNewRecord(asset);
+                        asset.ID = ModelID.GetID<Asset>(connection);
+
+                        GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
+
+                        Channel Va = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageA);
+                        Channel Vb = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageB);
+                        Channel Vc = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.VoltageC);
+
+                        Va.AssetID = asset.ID;
+                        Vb.AssetID = asset.ID;
+                        Vc.AssetID = asset.ID;
+
+                        channelTable.UpdateRecord(Va);
+                        channelTable.UpdateRecord(Vb);
+                        channelTable.UpdateRecord(Vc);
+
+                        if (nIa == 1 && nIb == 1 && nIc == 1)
+                        {
+                            Channel Ia = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentA);
+                            Channel Ib = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentB);
+                            Channel Ic = channels.Find(item => item.MeasurementType.ToLower() == MeasurementType.CurrentC);
+
+                            Ia.AssetID = asset.ID;
+                            Ib.AssetID = asset.ID;
+                            Ic.AssetID = asset.ID;
+
+                            channelTable.UpdateRecord(Ia);
+                            channelTable.UpdateRecord(Ib);
+                            channelTable.UpdateRecord(Ic);
+
+                        }
+                    
+                }
+
+                scope.Complete();
             }
             this.m_previousProgress = this.m_previousProgress + 50;
             this.mProgress.Report(this.m_previousProgress);
         }
 
-        private Channel ParseChannel(Meter meter, GSF.PQDIF.Logical.ChannelDefinition channeldef)
+        private Channel ParseChannel(Meter meter, GSF.PQDIF.Logical.ChannelDefinition channeldef, AdoDataConnection connection)
         {
             Channel channel = new Channel();
 
@@ -275,39 +279,37 @@ namespace FileParser
 
 
 
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
-            {
-                
-                string measurementname = MeasurementType.other;
-                if (isV && isA)
-                { measurementname = MeasurementType.VoltageA; }
-                else if (isV && isB)
-                { measurementname = MeasurementType.VoltageB; }
-                else if (isV && isC)
-                { measurementname = MeasurementType.VoltageC; }
-                else if (isI && isA)
-                { measurementname = MeasurementType.CurrentA; }
-                else if (isI && isB)
-                { measurementname = MeasurementType.CurrentB; }
-                else if (isI && isC)
-                { measurementname = MeasurementType.CurrentC; }
-                else if (isV && isN)
-                { measurementname = MeasurementType.other; }
-                else if (isI && isN)
-                { measurementname = MeasurementType.other; }
+                            
+            string measurementname = MeasurementType.other;
+            if (isV && isA)
+            { measurementname = MeasurementType.VoltageA; }
+            else if (isV && isB)
+            { measurementname = MeasurementType.VoltageB; }
+            else if (isV && isC)
+            { measurementname = MeasurementType.VoltageC; }
+            else if (isI && isA)
+            { measurementname = MeasurementType.CurrentA; }
+            else if (isI && isB)
+            { measurementname = MeasurementType.CurrentB; }
+            else if (isI && isC)
+            { measurementname = MeasurementType.CurrentC; }
+            else if (isV && isN)
+            { measurementname = MeasurementType.other; }
+            else if (isI && isN)
+            { measurementname = MeasurementType.other; }
 
-                GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
+            GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
 
-                channel.MeasurementType = measurementname;
+            channel.MeasurementType = measurementname;
 
-                channelTable.AddNewRecord(channel);
-                channel.ID = ModelID.GetID<Channel>(connection);
-            }
+            channelTable.AddNewRecord(channel);
+            channel.ID = ModelID.GetID<Channel>(connection);
+            
 
             return channel;
         }
 
-        private PQio.Model.Event ParseObservationRecord(GSF.PQDIF.Logical.ObservationRecord record)
+        private PQio.Model.Event ParseObservationRecord(GSF.PQDIF.Logical.ObservationRecord record, AdoDataConnection connection)
         {
             Event evt = new Event();
             evt.EventTime = record.StartTime;
@@ -315,17 +317,16 @@ namespace FileParser
             evt.GUID = new Guid().ToString();
 
             //Add Disturbance Category record in GSF
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
-            {
-                GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);
-                evtTable.AddNewRecord(evt);
-                evt.ID = ModelID.GetID<Event>(connection);
-            }
+            
+            GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);
+            evtTable.AddNewRecord(evt);
+            evt.ID = ModelID.GetID<Event>(connection);
+            
 
             return evt;
         }
 
-        private void ParseSeries(GSF.PQDIF.Logical.ChannelInstance channelInstance, Channel channel, Event evt)
+        private void ParseSeries(GSF.PQDIF.Logical.ChannelInstance channelInstance, Channel channel, Event evt, AdoDataConnection connection)
         {
             DataSeries dataSeries = new DataSeries();
             dataSeries.EventID = evt.ID;
@@ -372,17 +373,15 @@ namespace FileParser
                 Value = values[index]
             }).ToList();
 
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
-            {
+            
                 GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
                 dataSeriesTable.AddNewRecord(dataSeries);
-            }
+            
         }
 
-        private Boolean RemoveEmptyChannel(Channel channel)
+        private Boolean RemoveEmptyChannel(Channel channel, AdoDataConnection connection)
         {
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
-            {
+            
                 GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
                 GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
                 
@@ -396,26 +395,24 @@ namespace FileParser
                 }
                 else
                 { return true; }
-            }
+            
         }
 
-        private Boolean RemoveEmptyEvents(Event evt)
+        private Boolean RemoveEmptyEvents(Event evt, AdoDataConnection connection)
         {
-            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
+            GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
+            GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);
+
+            int nEvents = dataSeriesTable.QueryRecordCountWhere("EventID = {0} ", evt.ID);
+
+            if (nEvents == 0)
             {
-                GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
-                GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);
-
-                int nEvents = dataSeriesTable.QueryRecordCountWhere("EventID = {0} ", evt.ID);
-
-                if (nEvents == 0)
-                {
-                    evtTable.DeleteRecord(evt);
-                    return false;
-                }
-                else
-                { return true; }
+                evtTable.DeleteRecord(evt);
+                return false;
             }
+            else
+            { return true; }
+            
         }
 
         // The following 2 functions need to be updated to be compatible with the standard < 1.5
