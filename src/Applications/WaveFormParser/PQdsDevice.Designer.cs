@@ -64,190 +64,169 @@ namespace PQio
             // 
             // NameTxtBox
             // 
-            this.NameTxtBox.Location = new System.Drawing.Point(128, 37);
-            this.NameTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.NameTxtBox.Location = new System.Drawing.Point(85, 24);
             this.NameTxtBox.Name = "NameTxtBox";
-            this.NameTxtBox.Size = new System.Drawing.Size(178, 26);
+            this.NameTxtBox.Size = new System.Drawing.Size(202, 20);
             this.NameTxtBox.TabIndex = 0;
             // 
             // AliasTxtBox
             // 
-            this.AliasTxtBox.Location = new System.Drawing.Point(464, 37);
-            this.AliasTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.AliasTxtBox.Location = new System.Drawing.Point(390, 24);
             this.AliasTxtBox.Name = "AliasTxtBox";
-            this.AliasTxtBox.Size = new System.Drawing.Size(199, 26);
+            this.AliasTxtBox.Size = new System.Drawing.Size(210, 20);
             this.AliasTxtBox.TabIndex = 1;
             // 
             // LocationTxtBox
             // 
-            this.LocationTxtBox.Location = new System.Drawing.Point(92, 140);
-            this.LocationTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LocationTxtBox.Location = new System.Drawing.Point(85, 91);
             this.LocationTxtBox.Name = "LocationTxtBox";
-            this.LocationTxtBox.Size = new System.Drawing.Size(214, 26);
+            this.LocationTxtBox.Size = new System.Drawing.Size(202, 20);
             this.LocationTxtBox.TabIndex = 2;
             // 
             // LatTxtBox
             // 
-            this.LatTxtBox.Location = new System.Drawing.Point(92, 180);
-            this.LatTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LatTxtBox.Location = new System.Drawing.Point(85, 117);
             this.LatTxtBox.Name = "LatTxtBox";
-            this.LatTxtBox.Size = new System.Drawing.Size(214, 26);
+            this.LatTxtBox.Size = new System.Drawing.Size(202, 20);
             this.LatTxtBox.TabIndex = 3;
             // 
             // LocationAliasTxtBox
             // 
-            this.LocationAliasTxtBox.Location = new System.Drawing.Point(474, 140);
-            this.LocationAliasTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LocationAliasTxtBox.Location = new System.Drawing.Point(390, 91);
             this.LocationAliasTxtBox.Name = "LocationAliasTxtBox";
-            this.LocationAliasTxtBox.Size = new System.Drawing.Size(188, 26);
+            this.LocationAliasTxtBox.Size = new System.Drawing.Size(210, 20);
             this.LocationAliasTxtBox.TabIndex = 4;
             // 
             // LongTxtBox
             // 
-            this.LongTxtBox.Location = new System.Drawing.Point(474, 180);
-            this.LongTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LongTxtBox.Location = new System.Drawing.Point(390, 117);
             this.LongTxtBox.Name = "LongTxtBox";
-            this.LongTxtBox.Size = new System.Drawing.Size(188, 26);
+            this.LongTxtBox.Size = new System.Drawing.Size(210, 20);
             this.LongTxtBox.TabIndex = 5;
             // 
             // ActTxtBox
             // 
-            this.ActTxtBox.Location = new System.Drawing.Point(128, 274);
-            this.ActTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ActTxtBox.Location = new System.Drawing.Point(85, 178);
             this.ActTxtBox.Name = "ActTxtBox";
-            this.ActTxtBox.Size = new System.Drawing.Size(178, 26);
+            this.ActTxtBox.Size = new System.Drawing.Size(202, 20);
             this.ActTxtBox.TabIndex = 6;
             // 
             // ActAliasTxtBox
             // 
-            this.ActAliasTxtBox.Location = new System.Drawing.Point(483, 274);
-            this.ActAliasTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ActAliasTxtBox.Location = new System.Drawing.Point(396, 178);
             this.ActAliasTxtBox.Name = "ActAliasTxtBox";
-            this.ActAliasTxtBox.Size = new System.Drawing.Size(180, 26);
+            this.ActAliasTxtBox.Size = new System.Drawing.Size(204, 20);
             this.ActAliasTxtBox.TabIndex = 7;
             // 
             // OwnerTxtBox
             // 
-            this.OwnerTxtBox.Location = new System.Drawing.Point(92, 357);
-            this.OwnerTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.OwnerTxtBox.Location = new System.Drawing.Point(85, 232);
             this.OwnerTxtBox.Name = "OwnerTxtBox";
-            this.OwnerTxtBox.Size = new System.Drawing.Size(214, 26);
+            this.OwnerTxtBox.Size = new System.Drawing.Size(202, 20);
             this.OwnerTxtBox.TabIndex = 8;
             // 
             // XFRTxtBox
             // 
-            this.XFRTxtBox.Location = new System.Drawing.Point(180, 397);
-            this.XFRTxtBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.XFRTxtBox.Location = new System.Drawing.Point(202, 258);
             this.XFRTxtBox.Name = "XFRTxtBox";
-            this.XFRTxtBox.Size = new System.Drawing.Size(126, 26);
+            this.XFRTxtBox.Size = new System.Drawing.Size(85, 20);
             this.XFRTxtBox.TabIndex = 9;
             // 
             // connBox
             // 
             this.connBox.FormattingEnabled = true;
-            this.connBox.Location = new System.Drawing.Point(501, 395);
-            this.connBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.connBox.Location = new System.Drawing.Point(408, 257);
             this.connBox.Name = "connBox";
-            this.connBox.Size = new System.Drawing.Size(166, 28);
+            this.connBox.Size = new System.Drawing.Size(192, 21);
             this.connBox.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(7, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 20);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Device Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(356, 42);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(316, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 20);
+            this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Device Alias";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 145);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(7, 94);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 20);
+            this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Location";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 185);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(7, 120);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 20);
+            this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 14;
             this.label4.Text = "Latitude";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(356, 145);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(316, 94);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(108, 20);
+            this.label5.Size = new System.Drawing.Size(73, 13);
             this.label5.TabIndex = 15;
             this.label5.Text = "Location Alias";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(356, 185);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(316, 120);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 20);
+            this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "Longitude";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(356, 278);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(316, 181);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 20);
+            this.label7.Size = new System.Drawing.Size(72, 13);
             this.label7.TabIndex = 17;
             this.label7.Text = "Account Alias";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 278);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(7, 181);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(114, 20);
+            this.label8.Size = new System.Drawing.Size(78, 13);
             this.label8.TabIndex = 18;
             this.label8.Text = "Account Name";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 362);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(7, 235);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 20);
+            this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 19;
             this.label9.Text = "Owner";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 402);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(7, 261);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(164, 20);
+            this.label10.Size = new System.Drawing.Size(109, 13);
             this.label10.TabIndex = 20;
             this.label10.Text = "Distance to XFMR (ft)";
             this.label10.Click += new System.EventHandler(this.label10_Click);
@@ -255,19 +234,17 @@ namespace PQio
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(360, 402);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(316, 261);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(128, 20);
+            this.label11.Size = new System.Drawing.Size(88, 13);
             this.label11.TabIndex = 21;
             this.label11.Text = "Connection Type";
             // 
             // cxnBtn
             // 
-            this.cxnBtn.Location = new System.Drawing.Point(21, 525);
-            this.cxnBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cxnBtn.Location = new System.Drawing.Point(14, 341);
             this.cxnBtn.Name = "cxnBtn";
-            this.cxnBtn.Size = new System.Drawing.Size(207, 51);
+            this.cxnBtn.Size = new System.Drawing.Size(138, 33);
             this.cxnBtn.TabIndex = 22;
             this.cxnBtn.Text = "Cancel";
             this.cxnBtn.UseVisualStyleBackColor = true;
@@ -275,10 +252,9 @@ namespace PQio
             // 
             // saveBtn
             // 
-            this.saveBtn.Location = new System.Drawing.Point(452, 525);
-            this.saveBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.saveBtn.Location = new System.Drawing.Point(420, 339);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(207, 51);
+            this.saveBtn.Size = new System.Drawing.Size(138, 33);
             this.saveBtn.TabIndex = 23;
             this.saveBtn.Text = "Save";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -286,9 +262,9 @@ namespace PQio
             // 
             // PQdsDevice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 585);
+            this.ClientSize = new System.Drawing.Size(612, 380);
             this.Controls.Add(this.saveBtn);
             this.Controls.Add(this.cxnBtn);
             this.Controls.Add(this.label11);
@@ -314,7 +290,6 @@ namespace PQio
             this.Controls.Add(this.AliasTxtBox);
             this.Controls.Add(this.NameTxtBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PQdsDevice";
             this.Text = "PQio Device MetaData";
             this.Load += new System.EventHandler(this.PQioDevice_Load);

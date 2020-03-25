@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,8 +10,18 @@ namespace PQio
 {
     public partial class PQdsPQDSexp : Form
     {
+        #region[properties]
+        
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
+        #endregion[properties]
+
         public PQdsPQDSexp()
         {
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
             InitializeComponent();
         }
 
@@ -22,7 +33,7 @@ namespace PQio
         private void PQioPQDSexp_Load(object sender, EventArgs e)
         {
             //Load All Assets
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
 
@@ -40,7 +51,7 @@ namespace PQio
             this.chLstBoxEvt.Items.Clear();
             List<int> selectedAssetIDs = this.chLstBoxAsset.CheckedItems.OfType<Model.Asset>().Select(item => item.ID).ToList();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Event> evtTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
                 string sqlQuerry = "((SELECT COUNT(DataSeries.ID) FROM DataSeries WHERE DataSeries.EventID = Event.ID) > 0) " +
@@ -63,7 +74,7 @@ namespace PQio
             List<int> selectedEvtIDs = this.chLstBoxEvt.CheckedItems.OfType<Model.Event>().Select(item => item.ID).ToList();
             List<int> selectedAssetIDs = this.chLstBoxAsset.CheckedItems.OfType<Model.Asset>().Select(item => item.ID).ToList();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.AssetToEvent> assetToEventTable = new GSF.Data.Model.TableOperations<PQio.Model.AssetToEvent>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
@@ -119,7 +130,7 @@ namespace PQio
         private async void WritePQDSFile(List<Tuple<PQio.Model.Event, PQio.Model.Asset>> data, List<string> fileName)
         {
             string logfileName;
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Setting> settingTbl = new GSF.Data.Model.TableOperations<PQio.Model.Setting>(connection);
                 logfileName = settingTbl.QueryRecordWhere("Name = {0}", "logfile.name").value;

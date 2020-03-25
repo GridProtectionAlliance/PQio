@@ -1,5 +1,6 @@
 ﻿using GSF.Data;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PQio
@@ -8,17 +9,24 @@ namespace PQio
     {
         #region[properties]
         private PQio.Model.Asset m_Asset;
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
+
         #endregion[properties]
 
         public PQdsAsset(int id)
         {
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
             if (id == -1)
             {
                 m_Asset = new PQio.Model.Asset();
             }
             else
             {
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring,dataprovider))
                 {
 
                     GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
@@ -120,7 +128,7 @@ namespace PQio
             }
                        
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
                 assetTable.AddNewOrUpdateRecord(m_Asset);

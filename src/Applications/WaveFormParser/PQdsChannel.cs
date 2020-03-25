@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,8 +12,11 @@ namespace PQio
     public partial class PQdsChannel : Form
     {
         #region[Properties]
+
         PQio.Model.Event m_evt;
         PQio.Model.Channel m_channel;
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
 
         //This flag is for the Custom MetaData field
         bool alreadySavedFlag;
@@ -21,7 +25,10 @@ namespace PQio
         #region[Constructors]
         public PQdsChannel(int eventId, int channelId)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 this.m_channel = (new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection)).QueryRecordWhere("ID = {0}", channelId);
                 this.m_evt = (new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection)).QueryRecordWhere("ID = {0}", eventId);
@@ -63,7 +70,7 @@ namespace PQio
                     item => item == Model.MeasurementType.ToDisplay(""));
             }
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity> dataSensitivityTbl = new GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTbl = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
@@ -120,7 +127,7 @@ namespace PQio
 
             tabControl1.TabPages.Clear();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.CustomField> customFldTbl = new GSF.Data.Model.TableOperations<PQio.Model.CustomField>(connection);
                 List<string> HeaderFlds;
@@ -347,7 +354,7 @@ namespace PQio
 
             int index = (int)list.SelectedItems[0].Tag;
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.CustomField> customFldTbl = new GSF.Data.Model.TableOperations<PQio.Model.CustomField>(connection);
                 PQio.Model.CustomField fld;
@@ -438,7 +445,7 @@ namespace PQio
 
             this.m_channel.MeterID = (comboDevice.SelectedItem as dynamic).Value;
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 (new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection)).UpdateRecord(this.m_channel);
 

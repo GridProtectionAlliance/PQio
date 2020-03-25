@@ -66,20 +66,18 @@ namespace PQio
             // chLstBoxAsset
             // 
             this.chLstBoxAsset.FormattingEnabled = true;
-            this.chLstBoxAsset.Location = new System.Drawing.Point(18, 64);
-            this.chLstBoxAsset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chLstBoxAsset.Location = new System.Drawing.Point(12, 42);
             this.chLstBoxAsset.Name = "chLstBoxAsset";
-            this.chLstBoxAsset.Size = new System.Drawing.Size(242, 556);
+            this.chLstBoxAsset.Size = new System.Drawing.Size(163, 349);
             this.chLstBoxAsset.TabIndex = 0;
             this.chLstBoxAsset.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chLstBoxAsset_SelectedIndexChanged);
             // 
             // chLstBoxEvt
             // 
             this.chLstBoxEvt.FormattingEnabled = true;
-            this.chLstBoxEvt.Location = new System.Drawing.Point(294, 64);
-            this.chLstBoxEvt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chLstBoxEvt.Location = new System.Drawing.Point(196, 42);
             this.chLstBoxEvt.Name = "chLstBoxEvt";
-            this.chLstBoxEvt.Size = new System.Drawing.Size(242, 556);
+            this.chLstBoxEvt.Size = new System.Drawing.Size(163, 349);
             this.chLstBoxEvt.TabIndex = 1;
             this.chLstBoxEvt.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chLstBoxEvt_SelectedIndexChanged);
             // 
@@ -95,11 +93,9 @@ namespace PQio
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.chkDeviceMD);
-            this.groupBox1.Location = new System.Drawing.Point(580, 126);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(387, 82);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(256, 469);
+            this.groupBox1.Size = new System.Drawing.Size(171, 305);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
@@ -110,10 +106,9 @@ namespace PQio
             this.chkGUID.Checked = true;
             this.chkGUID.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGUID.Enabled = false;
-            this.chkGUID.Location = new System.Drawing.Point(9, 34);
-            this.chkGUID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkGUID.Location = new System.Drawing.Point(6, 22);
             this.chkGUID.Name = "chkGUID";
-            this.chkGUID.Size = new System.Drawing.Size(178, 24);
+            this.chkGUID.Size = new System.Drawing.Size(122, 17);
             this.chkGUID.TabIndex = 9;
             this.chkGUID.Text = "Include Event GUID";
             this.chkGUID.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -124,10 +119,9 @@ namespace PQio
             this.chkAuthor.AutoSize = true;
             this.chkAuthor.Checked = true;
             this.chkAuthor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAuthor.Location = new System.Drawing.Point(9, 69);
-            this.chkAuthor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkAuthor.Location = new System.Drawing.Point(6, 45);
             this.chkAuthor.Name = "chkAuthor";
-            this.chkAuthor.Size = new System.Drawing.Size(224, 24);
+            this.chkAuthor.Size = new System.Drawing.Size(150, 17);
             this.chkAuthor.TabIndex = 8;
             this.chkAuthor.Text = "Include Author Information";
             this.chkAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -138,10 +132,9 @@ namespace PQio
             this.CustomMetaData.AutoSize = true;
             this.CustomMetaData.Checked = true;
             this.CustomMetaData.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CustomMetaData.Location = new System.Drawing.Point(10, 245);
-            this.CustomMetaData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CustomMetaData.Location = new System.Drawing.Point(7, 159);
             this.CustomMetaData.Name = "CustomMetaData";
-            this.CustomMetaData.Size = new System.Drawing.Size(218, 24);
+            this.CustomMetaData.Size = new System.Drawing.Size(147, 17);
             this.CustomMetaData.TabIndex = 7;
             this.CustomMetaData.Text = "Include Custom Metadata";
             this.CustomMetaData.UseVisualStyleBackColor = true;
@@ -151,10 +144,9 @@ namespace PQio
             this.chkWaveForm.AutoSize = true;
             this.chkWaveForm.Checked = true;
             this.chkWaveForm.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWaveForm.Location = new System.Drawing.Point(10, 209);
-            this.chkWaveForm.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWaveForm.Location = new System.Drawing.Point(7, 136);
             this.chkWaveForm.Name = "chkWaveForm";
-            this.chkWaveForm.Size = new System.Drawing.Size(235, 24);
+            this.chkWaveForm.Size = new System.Drawing.Size(161, 17);
             this.chkWaveForm.TabIndex = 6;
             this.chkWaveForm.Text = "Inculde Waveform Metadata";
             this.chkWaveForm.UseVisualStyleBackColor = true;
@@ -164,10 +156,9 @@ namespace PQio
             this.chkTimeMD.AutoSize = true;
             this.chkTimeMD.Checked = true;
             this.chkTimeMD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTimeMD.Location = new System.Drawing.Point(10, 285);
-            this.chkTimeMD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkTimeMD.Location = new System.Drawing.Point(7, 185);
             this.chkTimeMD.Name = "chkTimeMD";
-            this.chkTimeMD.Size = new System.Drawing.Size(209, 24);
+            this.chkTimeMD.Size = new System.Drawing.Size(143, 17);
             this.chkTimeMD.TabIndex = 5;
             this.chkTimeMD.Text = "Include Timing Metadata";
             this.chkTimeMD.UseVisualStyleBackColor = true;
@@ -177,10 +168,9 @@ namespace PQio
             this.chkAssetMD.AutoSize = true;
             this.chkAssetMD.Checked = true;
             this.chkAssetMD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAssetMD.Location = new System.Drawing.Point(10, 175);
-            this.chkAssetMD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkAssetMD.Location = new System.Drawing.Point(7, 114);
             this.chkAssetMD.Name = "chkAssetMD";
-            this.chkAssetMD.Size = new System.Drawing.Size(204, 24);
+            this.chkAssetMD.Size = new System.Drawing.Size(138, 17);
             this.chkAssetMD.TabIndex = 4;
             this.chkAssetMD.Text = "Include Asset Metadata";
             this.chkAssetMD.UseVisualStyleBackColor = true;
@@ -190,10 +180,9 @@ namespace PQio
             this.chkEvtMD.AutoSize = true;
             this.chkEvtMD.Checked = true;
             this.chkEvtMD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkEvtMD.Location = new System.Drawing.Point(10, 140);
-            this.chkEvtMD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkEvtMD.Location = new System.Drawing.Point(7, 91);
             this.chkEvtMD.Name = "chkEvtMD";
-            this.chkEvtMD.Size = new System.Drawing.Size(204, 24);
+            this.chkEvtMD.Size = new System.Drawing.Size(140, 17);
             this.chkEvtMD.TabIndex = 3;
             this.chkEvtMD.Text = "Include Event Metadata";
             this.chkEvtMD.UseVisualStyleBackColor = true;
@@ -202,19 +191,17 @@ namespace PQio
             // dateTimePicker1
             // 
             this.dateTimePicker1.Enabled = false;
-            this.dateTimePicker1.Location = new System.Drawing.Point(14, 357);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dateTimePicker1.Location = new System.Drawing.Point(9, 232);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(192, 26);
+            this.dateTimePicker1.Size = new System.Drawing.Size(129, 20);
             this.dateTimePicker1.TabIndex = 2;
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(10, 317);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkBox2.Location = new System.Drawing.Point(7, 206);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(168, 24);
+            this.checkBox2.Size = new System.Drawing.Size(114, 17);
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "Change Start Time";
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -225,20 +212,18 @@ namespace PQio
             this.chkDeviceMD.AutoSize = true;
             this.chkDeviceMD.Checked = true;
             this.chkDeviceMD.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDeviceMD.Location = new System.Drawing.Point(10, 105);
-            this.chkDeviceMD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkDeviceMD.Location = new System.Drawing.Point(7, 68);
             this.chkDeviceMD.Name = "chkDeviceMD";
-            this.chkDeviceMD.Size = new System.Drawing.Size(211, 24);
+            this.chkDeviceMD.Size = new System.Drawing.Size(146, 17);
             this.chkDeviceMD.TabIndex = 0;
             this.chkDeviceMD.Text = "Include Device Metadata";
             this.chkDeviceMD.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(27, 649);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(18, 422);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(234, 60);
+            this.button1.Size = new System.Drawing.Size(156, 39);
             this.button1.TabIndex = 3;
             this.button1.Text = "Cancel";
             this.button1.UseVisualStyleBackColor = true;
@@ -247,10 +232,9 @@ namespace PQio
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(560, 643);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(373, 418);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(234, 72);
+            this.button2.Size = new System.Drawing.Size(156, 47);
             this.button2.TabIndex = 4;
             this.button2.Text = "Continue";
             this.button2.UseVisualStyleBackColor = true;
@@ -260,11 +244,9 @@ namespace PQio
             // 
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Controls.Add(this.radioButton1);
-            this.groupBox2.Location = new System.Drawing.Point(580, 20);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(387, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(252, 97);
+            this.groupBox2.Size = new System.Drawing.Size(168, 63);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Metadata";
@@ -273,10 +255,9 @@ namespace PQio
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Checked = true;
-            this.radioButton2.Location = new System.Drawing.Point(10, 62);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioButton2.Location = new System.Drawing.Point(7, 40);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(158, 24);
+            this.radioButton2.Size = new System.Drawing.Size(108, 17);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Include Metadata";
@@ -285,10 +266,9 @@ namespace PQio
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(10, 31);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.radioButton1.Location = new System.Drawing.Point(7, 20);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(151, 24);
+            this.radioButton1.Size = new System.Drawing.Size(102, 17);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.Text = "Anonymize Data";
             this.radioButton1.UseVisualStyleBackColor = true;
@@ -297,9 +277,10 @@ namespace PQio
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(296, 25);
+            this.button3.Location = new System.Drawing.Point(197, 16);
+            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 31);
+            this.button3.Size = new System.Drawing.Size(67, 20);
             this.button3.TabIndex = 6;
             this.button3.Text = "Select All";
             this.button3.UseVisualStyleBackColor = true;
@@ -308,9 +289,10 @@ namespace PQio
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(402, 25);
+            this.button4.Location = new System.Drawing.Point(268, 16);
+            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 31);
+            this.button4.Size = new System.Drawing.Size(67, 20);
             this.button4.TabIndex = 7;
             this.button4.Text = "DeSelect All";
             this.button4.UseVisualStyleBackColor = true;
@@ -319,9 +301,10 @@ namespace PQio
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(127, 25);
+            this.button5.Location = new System.Drawing.Point(85, 16);
+            this.button5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 31);
+            this.button5.Size = new System.Drawing.Size(67, 20);
             this.button5.TabIndex = 9;
             this.button5.Text = "DeSelect All";
             this.button5.UseVisualStyleBackColor = true;
@@ -330,9 +313,10 @@ namespace PQio
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(21, 25);
+            this.button6.Location = new System.Drawing.Point(14, 16);
+            this.button6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 31);
+            this.button6.Size = new System.Drawing.Size(67, 20);
             this.button6.TabIndex = 8;
             this.button6.Text = "Select All";
             this.button6.UseVisualStyleBackColor = true;
@@ -340,9 +324,9 @@ namespace PQio
             // 
             // PQdsPQDSexp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 735);
+            this.ClientSize = new System.Drawing.Size(580, 478);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
@@ -355,9 +339,8 @@ namespace PQio
             this.Controls.Add(this.chLstBoxAsset);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PQdsPQDSexp";
-            this.Text = "PQds Export PQDS";
+            this.Text = "PQio Export PQDS";
             this.Load += new System.EventHandler(this.PQioPQDSexp_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

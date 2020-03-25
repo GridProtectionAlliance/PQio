@@ -22,7 +22,9 @@
 //******************************************************************************************************
 
 
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using GSF.Data;
 using GSF.Data.Model;
@@ -46,7 +48,14 @@ namespace PQio.Model
 
         public static bool NoteisGlobal()
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            
+            string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            string connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
+
+
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring,dataprovider))
             {
                 GSF.Data.Model.TableOperations<DataSensitivity> tableOperations = new GSF.Data.Model.TableOperations<DataSensitivity>(connection);
 
@@ -60,7 +69,11 @@ namespace PQio.Model
 
         public static bool CodeisGlobal()
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            string connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<DataSensitivity> tableOperations = new GSF.Data.Model.TableOperations<DataSensitivity>(connection);
 

@@ -24,6 +24,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GSF.Data;
@@ -41,6 +42,11 @@ namespace FileParser
         #region[properties]
         private IProgress<int> mProgress;
         private int m_previousProgress;
+
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
+
         #endregion[properties]
 
         #region[methods]
@@ -51,6 +57,8 @@ namespace FileParser
         public PQDIFFparser ()
         {
             this.m_previousProgress = 0;
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            this.connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
         }
 
         /// <summary>
@@ -112,6 +120,7 @@ namespace FileParser
 
         private void Parse(string filename)
         {
+
             List<ObservationRecord> observationRecords;
             List<DataSourceRecord> dataSourceRecords;
 
@@ -151,7 +160,8 @@ namespace FileParser
 
             meter.AccountName = GSF.PQDIF.Logical.Vendor.ToString(dataSourceRecords[0].VendorID);
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<Meter> meterTable = new GSF.Data.Model.TableOperations<Meter>(connection);
 
@@ -195,7 +205,8 @@ namespace FileParser
             {
                 //Create new asset
                 Asset asset = new Asset() { AssetKey = String.Format("Asset 1 ({0})", meter.AccountName) };
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<Asset> assetTable = new GSF.Data.Model.TableOperations<Asset>(connection);
                     assetTable.AddNewRecord(asset);
@@ -262,9 +273,9 @@ namespace FileParser
             Boolean isC = (phase == Phase.CN) || (phase == Phase.CA);
             Boolean isN = phase == Phase.Residual;
 
-          
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 
                 string measurementname = MeasurementType.other;
@@ -302,9 +313,9 @@ namespace FileParser
             evt.EventTime = record.StartTime;
             evt.Name = record.Name;
             evt.GUID = new Guid().ToString();
-            
+
             //Add Disturbance Category record in GSF
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);
                 evtTable.AddNewRecord(evt);
@@ -361,7 +372,7 @@ namespace FileParser
                 Value = values[index]
             }).ToList();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
                 dataSeriesTable.AddNewRecord(dataSeries);
@@ -370,7 +381,7 @@ namespace FileParser
 
         private Boolean RemoveEmptyChannel(Channel channel)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
                 GSF.Data.Model.TableOperations<Channel> channelTable = new GSF.Data.Model.TableOperations<Channel>(connection);
@@ -390,7 +401,7 @@ namespace FileParser
 
         private Boolean RemoveEmptyEvents(Event evt)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<DataSeries>(connection);
                 GSF.Data.Model.TableOperations<Event> evtTable = new GSF.Data.Model.TableOperations<Event>(connection);

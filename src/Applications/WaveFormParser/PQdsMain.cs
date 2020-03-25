@@ -39,10 +39,12 @@ namespace PQio
     {
         #region [ Members ]
 
-        private string m_fileName;
-        private Boolean m_ChartDragFlag;
-        private Boolean m_hasData;
+        private bool m_ChartDragFlag;
+        private bool m_hasData;
 
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+        // Data Source=DataBase.db; Version=3; Foreign Keys=True; FailIfMissing=True
+        private string connectionstring;
         #endregion [ Members ]
 
         #region [ Constructor ]
@@ -149,7 +151,7 @@ namespace PQio
                     else
                     {
                         progressWindow.Close();
-                        m_fileName = dialog.SafeFileName;
+                       
                         Text = string.Format("PQio PQDIF - [{0}]", dialog.SafeFileName);
                         CSVExportButton.Enabled = true;
                         this.m_hasData = true;
@@ -171,7 +173,6 @@ namespace PQio
                     else
                     {
                         progressWindow.Close();
-                        m_fileName = dialog.SafeFileName;
                         this.Text = string.Format("PQio PQDS - [{0}]", dialog.SafeFileName);
                         CSVExportButton.Enabled = true;
                         this.m_hasData = true;
@@ -283,7 +284,7 @@ namespace PQio
         {
             List<TreeNode> nodes = new List<TreeNode>(3);
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 //DataType
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTable = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
@@ -332,7 +333,7 @@ namespace PQio
         private List<TreeNode> GetAssetMetaData()
         {
             List<TreeNode> nodes = new List<TreeNode>();
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
@@ -344,7 +345,7 @@ namespace PQio
         private List<TreeNode> GetDeviceMetaData()
         {
             List<TreeNode> nodes = new List<TreeNode>();
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTable = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
@@ -356,7 +357,7 @@ namespace PQio
         private List<TreeNode> GetEventMetaData()
         {
             List<TreeNode> nodes = new List<TreeNode>();
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
                 GSF.Data.Model.TableOperations<PQio.Model.Event> eventTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
@@ -608,7 +609,7 @@ namespace PQio
             ChannelTree.AllowDrop = true;
 
             //Create Nodes
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelViewTable = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
@@ -633,7 +634,7 @@ namespace PQio
             TreeNode assetNode = new TreeNode(string.Format("Asset: {0}", asset.AssetKey));
             assetNode.Tag = asset.ID;
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channeTable = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
                 assetNode.Nodes.AddRange(channeTable.QueryRecordsWhere("AssetID = {0}", asset.ID).Select(ChannelNode).ToArray());
@@ -646,7 +647,7 @@ namespace PQio
         {
             TreeNode channelNode = new TreeNode();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> meterTable = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
 
@@ -730,7 +731,7 @@ namespace PQio
                 // Retrieve the node that was dragged.
                 TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
 
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
                     PQio.Model.Channel channel = channelTbl.QueryRecordWhere("ID = {0}", (int)draggedNode.Tag);
@@ -781,7 +782,7 @@ namespace PQio
             if (!IsChannel(ChannelTree.SelectedNode)) { return; }
 
             //Create Nodes
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
@@ -799,7 +800,7 @@ namespace PQio
 
         private TreeNode EvtNode(PQio.Model.DataSeries dataSeries)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Event> evtTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
 
@@ -827,7 +828,7 @@ namespace PQio
                 ChannelMetaData.Nodes.Add(string.Format("Name: {0}", channel.Name));
             }
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.CustomField> customFldTbl = new GSF.Data.Model.TableOperations<PQio.Model.CustomField>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
@@ -912,7 +913,16 @@ namespace PQio
 
         private void CleanDB()
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            // copy into AppData/Local
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            string sourceFile = $"{FilePath.GetAbsolutePath("")}{Path.DirectorySeparatorChar}DataBase.db";
+
+            Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio");
+
+            File.Copy(sourceFile, localAppData, true);
+
+            this.connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring,dataprovider))
             {
                 connection.ExecuteScalar("DELETE FROM CustomField");
                 connection.ExecuteScalar("DELETE FROM DataSeries");
@@ -1031,7 +1041,7 @@ namespace PQio
 
         private void MetaDataMenueStandard()
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
                 ToolStripMenuItem dataSensitivityItem = new ToolStripMenuItem("Data Sensitivity");
@@ -1179,7 +1189,7 @@ namespace PQio
 
         private void RemoveAsset(int id)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTable = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
 
@@ -1200,7 +1210,7 @@ namespace PQio
 
         private void RemoveDevice(int id)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTable = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTable = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
@@ -1228,7 +1238,7 @@ namespace PQio
 
         private void RemoveEvent(int id)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Event> eventTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.DataSeries> seriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
@@ -1384,7 +1394,7 @@ namespace PQio
 
             // Add a series to the chart for this channel
             string seriesName = "";
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Event> evtTbl = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
@@ -1457,7 +1467,7 @@ namespace PQio
             if (this.m_ChartDragFlag)
             {
                 TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
 
@@ -1471,7 +1481,7 @@ namespace PQio
             if (this.m_ChartDragFlag)
             {
                 TreeNode draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
 
@@ -1499,7 +1509,7 @@ namespace PQio
         private void EvtList_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
                 
@@ -1514,7 +1524,7 @@ namespace PQio
             if (EvtList.SelectedNode is null) { return; }
             else
             {
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
                     DataSeries dataSeries = dataSeriesTable.QueryRecordWhere("ID = {0}", (int)this.EvtList.SelectedNode.Tag);
@@ -1527,7 +1537,7 @@ namespace PQio
             using (PQdsChannel subForm = new PQdsChannel(evtID,channelID))
             {
                 subForm.ShowDialog();
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTable = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
                     UpdateChannelMetaData(channelTable.QueryRecordWhere("ID={0}",channelID));

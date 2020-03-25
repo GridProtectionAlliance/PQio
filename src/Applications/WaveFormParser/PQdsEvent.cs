@@ -1,5 +1,6 @@
 ﻿using GSF.Data;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace PQio
@@ -9,11 +10,17 @@ namespace PQio
         #region[properties]
 
         private PQio.Model.Event m_Event;
-        
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
         #endregion[properties]
 
         public PQdsEvent(int id)
         {
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
+
             if (id == -1)
             {
                 //This means the GUID needs to be generated
@@ -22,7 +29,7 @@ namespace PQio
             }
             else
             {
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
 
                     GSF.Data.Model.TableOperations<PQio.Model.Event> evtTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
@@ -164,7 +171,7 @@ namespace PQio
 
         private void button2_Click(object sender, EventArgs e)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Event> evtTable = new GSF.Data.Model.TableOperations<PQio.Model.Event>(connection);
                 PQio.Model.Event evt = evtTable.QueryRecordWhere("ID =  {0}", m_Event.ID);

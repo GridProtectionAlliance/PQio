@@ -23,6 +23,7 @@
 
 using GSF.Data;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -32,6 +33,9 @@ namespace PQio
     {
         #region [Properties]
 
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
         #endregion [Properties]
 
         #region [Methods]
@@ -39,6 +43,9 @@ namespace PQio
 
         public PQdsDataSensitivity()
         {
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
             InitializeComponent();
         }
 
@@ -51,7 +58,7 @@ namespace PQio
         {
             DataSensitivityCombo.Items.AddRange(Model.DataSensitivityCode.DisplayOptions());
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity> dataSensitivityTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity>(connection);
                 
@@ -140,7 +147,7 @@ namespace PQio
              
         private void Save_BTN_Click(object sender, EventArgs e)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity> dataSensitivityTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity>(connection);
 

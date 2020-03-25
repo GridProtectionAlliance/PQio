@@ -44,6 +44,10 @@ namespace FileParser
         private string m_logilename;
         private int m_prevProgress;
         private IProgress<int> mProgress;
+
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
+
         #endregion[properties]
 
         #region[Constructor]
@@ -56,6 +60,9 @@ namespace FileParser
         {
             this.m_logilename = logfile;
             this.m_prevProgress = 0;
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            this.connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
         }
 
         /// <summary>
@@ -65,6 +72,9 @@ namespace FileParser
         {
             this.m_logilename = null;
             this.m_prevProgress = 0;
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            this.connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
         }
 
         #endregion[Constructor]
@@ -225,7 +235,7 @@ namespace FileParser
             file.ReadFromFile(filename, new Progress<double>(UpdateIOProgress));
             this.m_prevProgress = this.m_prevProgress + 50;
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
 
@@ -436,7 +446,7 @@ namespace FileParser
             int? lowestDataSensitivity;
             string dataSensitivityNote = null;
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
 
 
@@ -831,7 +841,7 @@ namespace FileParser
 
         private PQio.Model.DataSeries GetData(PQio.Model.Channel channel, PQio.Model.Event evt)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTbl = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
                 return dataSeriesTbl.QueryRecordWhere("ChannelID = {0} AND EventID = {1}", channel.ID, evt.ID);
@@ -842,7 +852,7 @@ namespace FileParser
         {
             Dictionary<string, PQio.Model.DataSeries> result = new Dictionary<string, PQio.Model.DataSeries>();
 
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
 
@@ -869,7 +879,7 @@ namespace FileParser
 
         private PQio.Model.Meter CheckMeterDuplicates(PQio.Model.Meter device)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTbl = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
 
@@ -977,7 +987,7 @@ namespace FileParser
             else
             {
 
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
                     asset.AssetKey = "PQDS File";
                     int i = 0;

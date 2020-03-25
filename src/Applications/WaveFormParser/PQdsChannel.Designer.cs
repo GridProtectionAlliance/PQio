@@ -67,7 +67,7 @@ namespace PQio
             // 
             // save
             // 
-            this.save.Location = new System.Drawing.Point(483, 390);
+            this.save.Location = new System.Drawing.Point(639, 390);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(153, 42);
             this.save.TabIndex = 1;
@@ -80,23 +80,23 @@ namespace PQio
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(67, 41);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(206, 21);
             this.comboBox1.TabIndex = 2;
             // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(291, 41);
+            this.comboBox2.Location = new System.Drawing.Point(411, 41);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.Size = new System.Drawing.Size(165, 21);
             this.comboBox2.TabIndex = 3;
             // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(291, 79);
+            this.comboBox3.Location = new System.Drawing.Point(411, 79);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.Size = new System.Drawing.Size(165, 21);
             this.comboBox3.TabIndex = 4;
             // 
             // label1
@@ -111,7 +111,7 @@ namespace PQio
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(220, 44);
+            this.label2.Location = new System.Drawing.Point(340, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 13);
             this.label2.TabIndex = 6;
@@ -120,7 +120,7 @@ namespace PQio
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(209, 82);
+            this.label3.Location = new System.Drawing.Point(329, 82);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 7;
@@ -138,7 +138,7 @@ namespace PQio
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(638, 233);
+            this.tabPage1.Size = new System.Drawing.Size(793, 233);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add New";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -149,7 +149,7 @@ namespace PQio
             this.tabControl1.Location = new System.Drawing.Point(7, 106);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(646, 259);
+            this.tabControl1.Size = new System.Drawing.Size(801, 259);
             this.tabControl1.TabIndex = 8;
             // 
             // label4
@@ -166,13 +166,13 @@ namespace PQio
             this.comboDevice.FormattingEnabled = true;
             this.comboDevice.Location = new System.Drawing.Point(67, 79);
             this.comboDevice.Name = "comboDevice";
-            this.comboDevice.Size = new System.Drawing.Size(121, 21);
+            this.comboDevice.Size = new System.Drawing.Size(206, 21);
             this.comboDevice.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(459, 22);
+            this.label5.Location = new System.Drawing.Point(603, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(106, 13);
             this.label5.TabIndex = 11;
@@ -182,17 +182,17 @@ namespace PQio
             // 
             this.DataSensitivityNoteText.AcceptsReturn = true;
             this.DataSensitivityNoteText.Enabled = false;
-            this.DataSensitivityNoteText.Location = new System.Drawing.Point(462, 38);
+            this.DataSensitivityNoteText.Location = new System.Drawing.Point(606, 38);
             this.DataSensitivityNoteText.Multiline = true;
             this.DataSensitivityNoteText.Name = "DataSensitivityNoteText";
             this.DataSensitivityNoteText.Size = new System.Drawing.Size(184, 62);
             this.DataSensitivityNoteText.TabIndex = 12;
             // 
-            // PQioChannel
+            // PQdsChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(663, 440);
+            this.ClientSize = new System.Drawing.Size(820, 440);
             this.Controls.Add(this.DataSensitivityNoteText);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -207,7 +207,7 @@ namespace PQio
             this.Controls.Add(this.save);
             this.Controls.Add(this.Cancel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "PQioChannel";
+            this.Name = "PQdsChannel";
             this.Text = "PQds Channel MetaData";
             this.Load += new System.EventHandler(this.PQioChannel_Load);
             this.tabControl1.ResumeLayout(false);

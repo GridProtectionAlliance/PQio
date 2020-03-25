@@ -1,6 +1,7 @@
 ﻿using GSF.Data;
 using System;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PQio
 {
@@ -10,18 +11,23 @@ namespace PQio
         #region[Properties]
 
         private PQio.Model.Meter m_device;
+        private string connectionstring;
+        private const string dataprovider = "AssemblyName={System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139}; ConnectionType=System.Data.SQLite.SQLiteConnection; AdapterType=System.Data.SQLite.SQLiteDataAdapter";
 
         #endregion[Properties]
 
         public PQdsDevice(int id)
         {
+            string localAppData = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}{Path.DirectorySeparatorChar}PQio{Path.DirectorySeparatorChar}DataBase.db";
+            connectionstring = $"Data Source={localAppData}; Version=3; Foreign Keys=True; FailIfMissing=True";
+
             if (id == -1)
             {
                 m_device = new PQio.Model.Meter();
             }
             else
             {
-                using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+                using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
                 {
 
                     GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTable = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
@@ -83,7 +89,7 @@ namespace PQio
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            using (AdoDataConnection connection = new AdoDataConnection("systemSettings"))
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTable = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
                 PQio.Model.Meter device = deviceTable.QueryRecordWhere("ID = {0}", m_device.ID);
