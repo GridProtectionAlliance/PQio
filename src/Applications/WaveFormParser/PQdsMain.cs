@@ -835,7 +835,8 @@ namespace PQio
 
                 GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTbl = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
                 GSF.Data.Model.TableOperations<PQio.Model.Meter> deviceTbl = new GSF.Data.Model.TableOperations<PQio.Model.Meter>(connection);
-                
+                GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity> dataSensitivityTbl = new GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity>(connection);
+
                 Asset asset = assetTbl.QueryRecordWhere("ID = {0}", channel.AssetID);
                 Meter device = deviceTbl.QueryRecordWhere("ID = {0}", channel.MeterID);
                 
@@ -856,18 +857,27 @@ namespace PQio
                 {
                     ChannelMetaData.Nodes.Add(string.Format("Measurement: {0} ({1})", MeasurementType.ToDisplay(channel.MeasurementType), channel.MeasurementType));
                 }
-                //if (channel.DataSensitivity != null)
-                //{
-                //    ChannelMetaData.Nodes.Add(string.Format("Data Sensitivity Code: {0} ({1})", Model.DataSensitivityCode.ToDisplay((int)channel.DataSensitivity), channel.DataSensitivity));
-                //}
+                
 
                 if ((asset != null)&&(this.EvtList.SelectedNode != null))
                 {
-
+                    
                     DataSeries dataSeries = dataSeriesTable.QueryRecordWhere("ID = {0}", (int)this.EvtList.SelectedNode.Tag);
 
                     if (dataSeries != null)
                     {
+                        if (channel.AssetID != null)
+                        {
+
+                            if (dataSensitivityTbl.QueryRecordCountWhere("Event = {0} AND Asset = {1}", (int)this.EvtList.SelectedNode.Tag, channel.AssetID) > 0)
+                            {
+                                DataSensitivity datasensitivity = dataSensitivityTbl.QueryRecordsWhere("Event = {0} AND Asset = {1}", (int)this.EvtList.SelectedNode.Tag, channel.AssetID).First();
+                                ChannelMetaData.Nodes.Add(string.Format("Data Sensitivity Code: {0} ({1})", Model.DataSensitivityCode.ToDisplay(datasensitivity.DataSensitivityCode), datasensitivity.DataSensitivityCode));
+                            }
+                                
+                        }
+
+
                         int nCustom = customFldTbl.QueryRecordCountWhere("AssetID = {0} AND EventID = {1} ", asset.ID, dataSeries.EventID);
 
                         if (nCustom > 0)

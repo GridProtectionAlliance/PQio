@@ -455,15 +455,18 @@ namespace PQio
 
                 PQio.Model.DataSensitivity dataSensitivity;
 
-                if (dataSensitivityTbl.QueryRecordCountWhere("Event = {0} AND Asset = {1}", this.m_evt.ID, this.m_channel.AssetID) > 0)
+                if (this.m_channel.AssetID != null)
                 {
-                   dataSensitivity = dataSensitivityTbl.QueryRecordsWhere("Event = {0} AND Asset = {1}", this.m_evt.ID, this.m_channel.AssetID).First();
-                }
+                    if (dataSensitivityTbl.QueryRecordCountWhere("Event = {0} AND Asset = {1}", this.m_evt.ID, this.m_channel.AssetID) > 0)
+                        dataSensitivity = dataSensitivityTbl.QueryRecordsWhere("Event = {0} AND Asset = {1}", this.m_evt.ID, this.m_channel.AssetID).First();
 
-                dataSensitivity = new Model.DataSensitivity() { Event = this.m_evt.ID, Asset = (int)this.m_channel.AssetID };
-                dataSensitivity.DataSensitivityCode = Model.DataSensitivityCode.ToValue((string)comboBox3.SelectedItem);
-                dataSensitivity.Note = DataSensitivityNoteText.Text;
-                dataSensitivityTbl.UpdateRecord(dataSensitivity);
+                    else
+                        dataSensitivity = new Model.DataSensitivity() { Event = this.m_evt.ID, Asset = (int)this.m_channel.AssetID };
+
+                    dataSensitivity.DataSensitivityCode = Model.DataSensitivityCode.ToValue((string)comboBox3.SelectedItem);
+                    dataSensitivity.Note = DataSensitivityNoteText.Text;
+                    dataSensitivityTbl.AddNewOrUpdateRecord(dataSensitivity);
+                }
             }
 
 
