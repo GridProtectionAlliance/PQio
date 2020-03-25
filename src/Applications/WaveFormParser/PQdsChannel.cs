@@ -102,6 +102,8 @@ namespace PQio
                     comboBox3.Enabled = false;
                     comboBox3.SelectedIndex = Array.FindIndex(Model.DataSensitivityCode.DisplayOptions(),
                         item => item == Model.DataSensitivityCode.ToDisplay(-1));
+                    tabControl1.Enabled = false;
+
                 }
 
                 comboDevice.DisplayMember = "Text";
@@ -441,7 +443,7 @@ namespace PQio
             if (Model.MeasurementType.ToValue((string)comboBox2.SelectedItem) != "")
                 this.m_channel.MeasurementType = Model.MeasurementType.ToValue((string)comboBox2.SelectedItem);
             else
-                this.m_channel.MeasurementType = null;
+                this.m_channel.MeasurementType = "";
 
             this.m_channel.MeterID = (comboDevice.SelectedItem as dynamic).Value;
 
@@ -472,6 +474,9 @@ namespace PQio
 
         private void OnClick(object sender, MouseEventArgs e)
         {
+            if (this.m_channel.AssetID == null)
+                return;
+
             if (e.Button == MouseButtons.Left && !this.tabControl1.Enabled)
             {
                 if (e.X > tabControl1.Location.X && e.X < tabControl1.Location.X + tabControl1.Width
