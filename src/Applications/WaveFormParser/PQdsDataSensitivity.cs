@@ -23,6 +23,7 @@
 
 using GSF.Data;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -106,8 +107,49 @@ namespace PQio
             if (result == DialogResult.Yes)
             {
                 DataSensitivityCombo.Enabled = true;
+                GenereateDataSensitivities("", 0);
                 return;
-            } 
+            }
+        }
+
+        private void GenereateDataSensitivities(string note, int code)
+        {
+            // If we overwrite we need to create a set of Asset and event IDs that need to create a Data Sesitivity Code
+            List<Tuple<int, int>> combinations = new List<Tuple<int, int>>();
+
+            using (AdoDataConnection connection = new AdoDataConnection(connectionstring, dataprovider))
+            {
+                GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
+                GSF.Data.Model.TableOperations<PQio.Model.Asset> assetTbl = new GSF.Data.Model.TableOperations<PQio.Model.Asset>(connection);
+                GSF.Data.Model.TableOperations<PQio.Model.DataSeries> seriesTbl = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
+                GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity> sensitivityTbl = new GSF.Data.Model.TableOperations<PQio.Model.DataSensitivity>(connection);
+
+                foreach (int assetID in assetTbl.QueryRecords().Select(item => item.ID))
+                {
+                    foreach (int channelID in channelTbl.QueryRecordsWhere("AssetID = {0}", assetID ).Select(item => item.ID))
+                    {
+                        foreach (int evtID in seriesTbl.QueryRecordsWhere("ChannelID = {0}", channelID).Select(item => item.EventID))
+                            combinations.Add(new Tuple<int, int>(assetID, evtID));
+                    }
+                }
+            
+
+                combinations = combinations.Distinct().ToList();
+
+                foreach (Tuple<int,int> item in combinations)
+                {
+                    if (sensitivityTbl.QueryRecordCountWhere("Event = {0} AND Asset = {1}", item.Item2, item.Item1) == 0)
+                        sensitivityTbl.AddNewRecord(new Model.DataSensitivity()
+                        {
+                            Asset = item.Item1,
+                            Event = item.Item2,
+                            DataSensitivityCode = code,
+                            Note = note
+                        });
+
+                }
+
+            }
         }
 
         private void WarnNoteOverride()
@@ -118,6 +160,7 @@ namespace PQio
             if (result == DialogResult.Yes)
             {
                 DataSensitivityNoteText.Enabled = true;
+                GenereateDataSensitivities("", 0);
                 return;
             }
         }
