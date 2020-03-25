@@ -40,13 +40,11 @@ namespace PQio
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PQdsMain));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PQdsMain));
             this.CSVExportButton = new System.Windows.Forms.Button();
             this.btn_FileOpen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -60,6 +58,8 @@ namespace PQio
             this.GlobalMetaDataContextMenue = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.Panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.DataChart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.DataChart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -70,6 +70,8 @@ namespace PQio
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.Panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataChart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataChart1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -79,10 +81,9 @@ namespace PQio
             // CSVExportButton
             // 
             this.CSVExportButton.Enabled = false;
-            this.CSVExportButton.Location = new System.Drawing.Point(8, 95);
-            this.CSVExportButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CSVExportButton.Location = new System.Drawing.Point(5, 62);
             this.CSVExportButton.Name = "CSVExportButton";
-            this.CSVExportButton.Size = new System.Drawing.Size(180, 38);
+            this.CSVExportButton.Size = new System.Drawing.Size(120, 25);
             this.CSVExportButton.TabIndex = 4;
             this.CSVExportButton.Text = "Export to PQDS";
             this.CSVExportButton.UseVisualStyleBackColor = true;
@@ -90,10 +91,9 @@ namespace PQio
             // 
             // btn_FileOpen
             // 
-            this.btn_FileOpen.Location = new System.Drawing.Point(8, 8);
-            this.btn_FileOpen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_FileOpen.Location = new System.Drawing.Point(5, 5);
             this.btn_FileOpen.Name = "btn_FileOpen";
-            this.btn_FileOpen.Size = new System.Drawing.Size(180, 38);
+            this.btn_FileOpen.Size = new System.Drawing.Size(120, 25);
             this.btn_FileOpen.TabIndex = 8;
             this.btn_FileOpen.Text = "Open File";
             this.btn_FileOpen.UseVisualStyleBackColor = true;
@@ -109,28 +109,25 @@ namespace PQio
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.MetaDataTree);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(225, 8);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel1.Location = new System.Drawing.Point(150, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1350, 529);
+            this.panel1.Size = new System.Drawing.Size(900, 344);
             this.panel1.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1050, 237);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(700, 154);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 20);
+            this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Local Metadata";
             // 
             // ChannelMetaData
             // 
-            this.ChannelMetaData.Location = new System.Drawing.Point(1050, 262);
-            this.ChannelMetaData.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ChannelMetaData.Location = new System.Drawing.Point(700, 170);
             this.ChannelMetaData.Name = "ChannelMetaData";
-            this.ChannelMetaData.Size = new System.Drawing.Size(283, 249);
+            this.ChannelMetaData.Size = new System.Drawing.Size(190, 163);
             this.ChannelMetaData.TabIndex = 8;
             this.ChannelMetaData.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.ChannelMetaDataClick);
             // 
@@ -138,10 +135,9 @@ namespace PQio
             // 
             this.EvtList.HideSelection = false;
             this.EvtList.HotTracking = true;
-            this.EvtList.Location = new System.Drawing.Point(1050, 31);
-            this.EvtList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.EvtList.Location = new System.Drawing.Point(700, 20);
             this.EvtList.Name = "EvtList";
-            this.EvtList.Size = new System.Drawing.Size(283, 199);
+            this.EvtList.Size = new System.Drawing.Size(190, 131);
             this.EvtList.TabIndex = 7;
             this.EvtList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.EvtList_ItemDrag);
             this.EvtList.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.EvtList_AfterSelect);
@@ -149,10 +145,9 @@ namespace PQio
             // ChannelTree
             // 
             this.ChannelTree.HideSelection = false;
-            this.ChannelTree.Location = new System.Drawing.Point(604, 31);
-            this.ChannelTree.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ChannelTree.Location = new System.Drawing.Point(403, 20);
             this.ChannelTree.Name = "ChannelTree";
-            this.ChannelTree.Size = new System.Drawing.Size(440, 479);
+            this.ChannelTree.Size = new System.Drawing.Size(295, 313);
             this.ChannelTree.TabIndex = 5;
             this.ChannelTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.ChannelTree_ItemDrag);
             this.ChannelTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ChannelTree_SelectedIndexChanged);
@@ -163,30 +158,27 @@ namespace PQio
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(600, 9);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(400, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 20);
+            this.label3.Size = new System.Drawing.Size(101, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Asset and Channels";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(5, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 20);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Global Metadata";
             // 
             // MetaDataTree
             // 
             this.MetaDataTree.ContextMenuStrip = this.GlobalMetaDataContextMenue;
-            this.MetaDataTree.Location = new System.Drawing.Point(8, 31);
-            this.MetaDataTree.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MetaDataTree.Location = new System.Drawing.Point(5, 20);
             this.MetaDataTree.Name = "MetaDataTree";
-            this.MetaDataTree.Size = new System.Drawing.Size(583, 479);
+            this.MetaDataTree.Size = new System.Drawing.Size(390, 313);
             this.MetaDataTree.TabIndex = 2;
             // 
             // GlobalMetaDataContextMenue
@@ -199,22 +191,50 @@ namespace PQio
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1050, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(700, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 20);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Disturbance Events";
             // 
             // Panel2
             // 
+            this.Panel2.Controls.Add(this.pictureBox3);
+            this.Panel2.Controls.Add(this.pictureBox2);
             this.Panel2.Controls.Add(this.DataChart2);
             this.Panel2.Controls.Add(this.DataChart1);
-            this.Panel2.Location = new System.Drawing.Point(225, 546);
-            this.Panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Panel2.Location = new System.Drawing.Point(150, 355);
             this.Panel2.Name = "Panel2";
-            this.Panel2.Size = new System.Drawing.Size(1350, 308);
+            this.Panel2.Size = new System.Drawing.Size(900, 200);
             this.Panel2.TabIndex = 2;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.AllowDrop = true;
+            this.pictureBox3.BackColor = System.Drawing.Color.White;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(450, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(439, 194);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 13;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Chart1_DragDrop);
+            this.pictureBox3.DragOver += new System.Windows.Forms.DragEventHandler(this.Chart_DragOver);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.AllowDrop = true;
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(5, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(439, 194);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 12;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Chart2_DragDrop);
+            this.pictureBox2.DragOver += new System.Windows.Forms.DragEventHandler(this.Chart_DragOver);
             // 
             // DataChart2
             // 
@@ -224,14 +244,9 @@ namespace PQio
             this.DataChart2.ContextMenuStrip = this.contextMenuStrip2;
             legend1.Name = "Legend1";
             this.DataChart2.Legends.Add(legend1);
-            this.DataChart2.Location = new System.Drawing.Point(8, 5);
-            this.DataChart2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DataChart2.Location = new System.Drawing.Point(5, 3);
             this.DataChart2.Name = "DataChart2";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.DataChart2.Series.Add(series1);
-            this.DataChart2.Size = new System.Drawing.Size(660, 298);
+            this.DataChart2.Size = new System.Drawing.Size(440, 194);
             this.DataChart2.TabIndex = 1;
             this.DataChart2.Text = "chart1";
             this.DataChart2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Chart2_DragDrop);
@@ -251,14 +266,9 @@ namespace PQio
             this.DataChart1.ContextMenuStrip = this.contextMenuStrip1;
             legend2.Name = "Legend1";
             this.DataChart1.Legends.Add(legend2);
-            this.DataChart1.Location = new System.Drawing.Point(675, 5);
-            this.DataChart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DataChart1.Location = new System.Drawing.Point(450, 3);
             this.DataChart1.Name = "DataChart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.DataChart1.Series.Add(series2);
-            this.DataChart1.Size = new System.Drawing.Size(660, 298);
+            this.DataChart1.Size = new System.Drawing.Size(440, 194);
             this.DataChart1.TabIndex = 0;
             this.DataChart1.Text = "chart1";
             this.DataChart1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Chart1_DragDrop);
@@ -277,18 +287,16 @@ namespace PQio
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Controls.Add(this.CSVExportButton);
             this.panel3.Controls.Add(this.btn_FileOpen);
-            this.panel3.Location = new System.Drawing.Point(15, 8);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel3.Location = new System.Drawing.Point(10, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(195, 846);
+            this.panel3.Size = new System.Drawing.Size(130, 550);
             this.panel3.TabIndex = 3;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(8, 51);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button2.Location = new System.Drawing.Point(5, 33);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(180, 38);
+            this.button2.Size = new System.Drawing.Size(120, 25);
             this.button2.TabIndex = 11;
             this.button2.Text = "Open Folder";
             this.button2.UseVisualStyleBackColor = true;
@@ -296,10 +304,9 @@ namespace PQio
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(8, 665);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button1.Location = new System.Drawing.Point(5, 432);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 38);
+            this.button1.Size = new System.Drawing.Size(120, 25);
             this.button1.TabIndex = 10;
             this.button1.Text = "About";
             this.button1.UseVisualStyleBackColor = true;
@@ -308,34 +315,34 @@ namespace PQio
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(4, 712);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 463);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(183, 129);
+            this.pictureBox1.Size = new System.Drawing.Size(122, 84);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
             // PQdsMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1581, 863);
+            this.ClientSize = new System.Drawing.Size(1054, 561);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.Panel2);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1594, 893);
+            this.MinimumSize = new System.Drawing.Size(1068, 594);
             this.Name = "PQdsMain";
-            this.Padding = new System.Windows.Forms.Padding(15);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "PQio";
             this.Load += new System.EventHandler(this.FileViewer_Load);
             this.Resize += new System.EventHandler(this.Form_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataChart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataChart1)).EndInit();
             this.panel3.ResumeLayout(false);
@@ -366,6 +373,8 @@ namespace PQio
         private Button button1;
         private Button button2;
         private ContextMenuStrip GlobalMetaDataContextMenue;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
     }
 }
 

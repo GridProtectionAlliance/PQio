@@ -103,6 +103,36 @@ namespace PQio
             this.ChannelMetaData.Top = this.EvtList.Height + 39;
             this.label4.Top = this.EvtList.Height + 23;
 
+            //adjust PictureBoxes on top of charting 
+            int width = this.DataChart2.Width;
+            int height = (this.DataChart2.Width * 192) / 439;
+            if (height > this.DataChart2.Height)
+            {
+                height = this.DataChart2.Height;
+                width = (this.DataChart2.Height * 439) / 192;
+            }
+
+            this.pictureBox2.Left = this.DataChart2.Left + (this.DataChart2.Width - width) / 2;
+            this.pictureBox2.Top = this.DataChart2.Top + (this.DataChart2.Height - height) / 2;
+            this.pictureBox2.Width = width;
+            this.pictureBox2.Height = height;
+
+            this.pictureBox3.Left = this.DataChart1.Left + (this.DataChart1.Width - width) / 2;
+            this.pictureBox3.Top = this.DataChart1.Top + (this.DataChart1.Height - height) / 2;
+            this.pictureBox3.Width = width;
+            this.pictureBox3.Height = height;
+
+            //Hide Instructions if there is data
+            if (this.DataChart2.Series.Count > 0)
+                this.pictureBox2.Visible = false;
+            else
+                this.pictureBox2.Visible = true;
+
+            if (this.DataChart1.Series.Count > 0)
+                this.pictureBox3.Visible = false;
+            else
+                this.pictureBox3.Visible = true;
+
             // Button Panel
             this.panel3.Height = this.Size.Height - 50;
             this.pictureBox1.Top = this.panel3.Height - 87;
@@ -1482,6 +1512,7 @@ namespace PQio
                     GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
 
                     AddToChart(dataSeriesTable.QueryRecordWhere("ID = {0}", (int)draggedNode.Tag),this.DataChart1);
+                    this.pictureBox3.Visible = false;
                 }
             }
         }
@@ -1496,6 +1527,7 @@ namespace PQio
                     GSF.Data.Model.TableOperations<PQio.Model.DataSeries> dataSeriesTable = new GSF.Data.Model.TableOperations<PQio.Model.DataSeries>(connection);
 
                     AddToChart(dataSeriesTable.QueryRecordWhere("ID = {0}", (int)draggedNode.Tag), this.DataChart2);
+                    this.pictureBox2.Visible = false;
                 }
             }
         }
@@ -1503,10 +1535,12 @@ namespace PQio
         private void ClearChart1(object sender, EventArgs e)
         {
             this.DataChart1.Series.Clear();
+            this.pictureBox3.Visible = true;
         }
         private void ClearChart2(object sender, EventArgs e)
         {
             this.DataChart2.Series.Clear();
+            this.pictureBox2.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1523,7 +1557,8 @@ namespace PQio
             {
                 GSF.Data.Model.TableOperations<PQio.Model.Channel> channelTbl = new GSF.Data.Model.TableOperations<PQio.Model.Channel>(connection);
                 
-                UpdateChannelMetaData(channelTbl.QueryRecordWhere("ID = {0}", (int)ChannelTree.SelectedNode.Tag));
+                if (ChannelTree.SelectedNode != null)
+                    UpdateChannelMetaData(channelTbl.QueryRecordWhere("ID = {0}", (int)ChannelTree.SelectedNode.Tag));
             }
         }
 
