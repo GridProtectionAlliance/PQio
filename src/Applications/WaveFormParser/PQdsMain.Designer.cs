@@ -43,8 +43,10 @@ namespace PQio
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PQdsMain));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.CSVExportButton = new System.Windows.Forms.Button();
             this.btn_FileOpen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -246,6 +248,10 @@ namespace PQio
             this.DataChart2.Legends.Add(legend1);
             this.DataChart2.Location = new System.Drawing.Point(5, 3);
             this.DataChart2.Name = "DataChart2";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.DataChart2.Series.Add(series1);
             this.DataChart2.Size = new System.Drawing.Size(440, 194);
             this.DataChart2.TabIndex = 1;
             this.DataChart2.Text = "chart1";
@@ -268,6 +274,10 @@ namespace PQio
             this.DataChart1.Legends.Add(legend2);
             this.DataChart1.Location = new System.Drawing.Point(450, 3);
             this.DataChart1.Name = "DataChart1";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.DataChart1.Series.Add(series2);
             this.DataChart1.Size = new System.Drawing.Size(440, 194);
             this.DataChart1.TabIndex = 0;
             this.DataChart1.Text = "chart1";

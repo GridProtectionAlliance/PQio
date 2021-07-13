@@ -339,6 +339,7 @@ namespace PQio
             this.Controls.Add(this.chLstBoxAsset);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "PQdsPQDSexp";
             this.Text = "PQio Export PQDS";
             this.Load += new System.EventHandler(this.PQioPQDSexp_Load);
